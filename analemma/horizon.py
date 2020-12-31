@@ -1,6 +1,7 @@
 import dataclasses
 import datetime
 import math
+import typing
 
 from dateutil import tz
 
@@ -121,5 +122,5 @@ def sun_rise_and_set(
     latitude: float = DEFAULT_LATITUDE,
     longitude: float = DEFAULT_LONGITUDE,
     timezone_name: str = DEFAULT_TIMEZONE_NAME,
-):
+) -> typing.Dict[str, typing.Any]:
     return dataclasses.asdict(SunRiseAndSet.from_theory(**locals()))
