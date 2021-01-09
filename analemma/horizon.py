@@ -118,9 +118,11 @@ class SunRiseAndSet:
 
 
 def sun_rise_and_set(
-    current_timestamp: float = datetime.datetime.now().timestamp(),
+    current_timestamp: float = None,
     latitude: float = DEFAULT_LATITUDE,
     longitude: float = DEFAULT_LONGITUDE,
     timezone_name: str = DEFAULT_TIMEZONE_NAME,
 ) -> typing.Dict[str, typing.Any]:
+    if current_timestamp is None:
+        current_timestamp = datetime.datetime.now().timestamp()
     return dataclasses.asdict(SunRiseAndSet.from_theory(**locals()))
