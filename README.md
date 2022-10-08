@@ -18,7 +18,7 @@ pip install -e git+https://github.com/jeffseif/analemma.git#egg=analemma
 Import and run it
 
 ```python
->>> from analemma import horizon
->>> horizon.sun_rise_and_set()
+>>> import analemma
+>>> analemma.sun_rise_and_set()
 {'current_timestamp': 1592722800, 'latitude': 37.871667, 'longitude': -122.272778, 'solar_noon': datetime.datetime(2020, 6, 21, 13, 10, 32, 132916), 'sunlight_hours': 14.792841731732462, 'sunrise': datetime.datetime(2020, 6, 21, 5, 46, 45, 17799), 'sunset': datetime.datetime(2020, 6, 21, 20, 34, 19, 248033), 'timezone_name': 'America/Los_Angeles'}
 ```
