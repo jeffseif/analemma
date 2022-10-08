@@ -1,5 +1,14 @@
+*.pyc
 *.swp
-venv/
+*~
+.cache/
+.coverage
+.tox/
 __pycache__/
+build/
+dist/
 .eggs/
 *.egg-info
+.pytest_cache/
+venv/
+*.gz

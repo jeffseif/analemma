@@ -39,7 +39,7 @@ class SunRiseAndSet:
     def get_equation_of_time_minutes(year_fraction: float) -> float:
         year_radians = year_fraction * RADIANS_PER_CYCLE
         return 229.18 * (
-            + 0.000075
+            +0.000075
             + 0.001868 * math.cos(year_radians)
             - 0.032077 * math.sin(year_radians)
             - 0.014615 * math.cos(2 * year_radians)
@@ -50,7 +50,7 @@ class SunRiseAndSet:
     def get_solar_declination_radians(year_fraction: float) -> float:
         year_radians = year_fraction * RADIANS_PER_CYCLE
         return (
-            + 0.006918
+            +0.006918
             - 0.399912 * math.cos(year_radians)
             + 0.070257 * math.sin(year_radians)
             - 0.006758 * math.cos(2 * year_radians)
@@ -67,8 +67,10 @@ class SunRiseAndSet:
         latitude_radians = latitude * math.pi / 180
         zenith_radians = 90.833 * math.pi / 180
         hour_angle_radians = math.acos(
-            math.cos(zenith_radians) / math.cos(latitude_radians) / math.cos(solar_declination_radians)
-            - math.tan(latitude_radians) * math.tan(solar_declination_radians)
+            math.cos(zenith_radians)
+            / math.cos(latitude_radians)
+            / math.cos(solar_declination_radians)
+            - math.tan(latitude_radians) * math.tan(solar_declination_radians),
         )
         return hour_angle_radians * HOURS_PER_RADIAN
 
@@ -84,10 +86,13 @@ class SunRiseAndSet:
         dt = datetime.datetime.fromtimestamp(current_timestamp)
         year_fraction = cls.get_year_fraction(dt=dt)
 
-        equation_of_time_minutes = cls.get_equation_of_time_minutes(year_fraction=year_fraction)
+        equation_of_time_minutes = cls.get_equation_of_time_minutes(
+            year_fraction=year_fraction,
+        )
 
         local_timezone = tz.gettz(timezone_name)
-        utc_offset_hours = dt.astimezone(local_timezone).utcoffset() / ONE_HOUR
+        utcoffset = dt.astimezone(local_timezone).utcoffset() or datetime.timedelta()
+        utc_offset_hours = utcoffset / ONE_HOUR
         solar_noon = (
             # Noon today
             datetime.datetime(dt.year, dt.month, dt.day, 12)
@@ -99,7 +104,9 @@ class SunRiseAndSet:
             + datetime.timedelta(hours=utc_offset_hours)
         )
 
-        solar_declination_radians = cls.get_solar_declination_radians(year_fraction=year_fraction)
+        solar_declination_radians = cls.get_solar_declination_radians(
+            year_fraction=year_fraction,
+        )
 
         hour_angle_hours = cls.get_hour_angle_hours(
             latitude=latitude,

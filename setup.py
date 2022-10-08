@@ -1,10 +1,10 @@
 from setuptools import setup
 
-from analemma import __author__
-from analemma import __email__
-from analemma import __program__
-from analemma import __url__
-from analemma import __version__
+__author__ = "Jeffrey Seifried"
+__email__ = "jeffrey.seifried@gmail.com"
+__program__ = "analemma"
+__url__ = "http://github.com/jeffseif/{}".format(__program__)
+__version__ = "1.0.0"
 
 
 setup(
@@ -12,11 +12,7 @@ setup(
     author_email=__email__,
     install_requires=["python-dateutil"],
     name=__program__,
-    packages=[__program__],
-    platforms="all",
-    setup_requires=[
-        "setuptools",
-    ],
+    packages=["."],
     url=__url__,
     version=__version__,
 )
