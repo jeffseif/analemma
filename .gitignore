@@ -10,5 +10,5 @@ dist/
 .eggs/
 *.egg-info
 .pytest_cache/
-venv/
+.venv/
 *.gz

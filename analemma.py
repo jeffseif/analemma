@@ -25,6 +25,7 @@ class SunRiseAndSet:
     longitude: float
     solar_noon: datetime.datetime
     sunlight_hours: float
+    sunlight_day_drift_minutes: float
     sunrise: datetime.datetime
     sunset: datetime.datetime
     timezone_name: str
@@ -112,11 +113,24 @@ class SunRiseAndSet:
             latitude=latitude,
             solar_declination_radians=solar_declination_radians,
         )
+
+        yesterday_dt = dt - datetime.timedelta(days=1)
+        yesterday_year_fraction = cls.get_year_fraction(dt=yesterday_dt)
+        yesterday_solar_declination_radians = cls.get_solar_declination_radians(
+            year_fraction=yesterday_year_fraction,
+        )
+        yesterday_hour_angle_hours = cls.get_hour_angle_hours(
+            latitude=latitude,
+            solar_declination_radians=yesterday_solar_declination_radians,
+        )
         return cls(
             current_timestamp=current_timestamp,
             longitude=longitude,
             latitude=latitude,
             solar_noon=solar_noon,
+            sunlight_day_drift_minutes=(
+                (hour_angle_hours - yesterday_hour_angle_hours) * 60 * 2
+            ),
             sunlight_hours=(hour_angle_hours * 2),
             sunrise=(solar_noon - datetime.timedelta(hours=hour_angle_hours)),
             sunset=(solar_noon + datetime.timedelta(hours=hour_angle_hours)),
