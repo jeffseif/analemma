@@ -4,7 +4,7 @@ __author__ = "Jeffrey Seifried"
 __email__ = "jeffrey.seifried@gmail.com"
 __program__ = "analemma"
 __url__ = "http://github.com/jeffseif/{}".format(__program__)
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 setup(
