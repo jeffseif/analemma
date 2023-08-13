@@ -12,7 +12,7 @@ Although there are several nice online API's for fetching sun data ([1](https://
 Install the package:
 
 ```bash
-pip install -e git+https://github.com/jeffseif/analemma.git#egg=analemma
+pip install git+https://github.com/jeffseif/analemma.git@main
 ```
 
 Import and run it
